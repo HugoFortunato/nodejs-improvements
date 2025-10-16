@@ -25,13 +25,8 @@ beforeAll(async () => {
   const databaseURL = generateUniqueDatabaseURL(schemaId);
   process.env.DATABASE_URL = databaseURL;
 
-  // Se quiser garantir limpeza total antes
   await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schemaId}" CASCADE`);
 
-  // ❌ errado para testes
-  // execSync('npx prisma migrate deploy', { stdio: 'inherit' });
-
-  // ✅ certo para testes E2E
   execSync('npx prisma db push', { stdio: 'inherit' });
 });
 
